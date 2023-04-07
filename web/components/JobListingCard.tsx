@@ -12,7 +12,7 @@ type Props = {
 };
 export function JobListingCard({ jobListings }: Props) {
   return (
-    <div className="card w-full bg-base-100 border border-neutral">
+    <div className="card card-bordered w-full bg-base-100">
       <div className="card-body">
         <div className="flex items-end gap-2">
           <h2 className="card-title m-0">{jobListings.title}</h2>

@@ -59,7 +59,7 @@ export default function Home() {
           onChange={handleThemeChange}
         >
           {themes.map((theme, index) => (
-            <option key={index} value={theme}>
+            <option key={index} value={theme} selected={theme === "garden"}>
               {theme}
             </option>
           ))}
@@ -71,7 +71,7 @@ export default function Home() {
           <input
             type="text"
             placeholder="Recherchez un poste"
-            className="input input-bordered w-full border-neutral"
+            className="input input-bordered w-full"
           />
           <button className="btn btn-square">
             <svg
