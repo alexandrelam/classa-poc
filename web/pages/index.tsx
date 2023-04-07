@@ -52,8 +52,8 @@ export default function Home() {
 
   return (
     <>
-      <div className="navbar bg-base-100 shadow-sm flex justify-between">
-        <a className="btn btn-ghost normal-case text-xl text-accent">Classa</a>
+      <div className="navbar bg-base-100 border-b border-neutral border-opacity-10 flex justify-between">
+        <a className="btn btn-ghost normal-case text-xl">Classa</a>
         <select
           className="select select-primary w-full max-w-xs"
           onChange={handleThemeChange}
@@ -71,7 +71,7 @@ export default function Home() {
           <input
             type="text"
             placeholder="Recherchez un poste"
-            className="input input-bordered w-full"
+            className="input input-bordered w-full border-neutral"
           />
           <button className="btn btn-square">
             <svg
