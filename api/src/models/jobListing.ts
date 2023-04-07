@@ -1,14 +1,14 @@
 import mongoose from "mongoose";
 
-export type jobListingType = {
-  title: String;
-  description: String;
-  company: String;
-  salary: Number;
-  tags: String[];
+export type JobListingType = {
+  title: string;
+  description: string;
+  company: string;
+  salary: number;
+  tags: string[];
 };
 
-const jobListingSchema = new mongoose.Schema<jobListingType>({
+const jobListingSchema = new mongoose.Schema<JobListingType>({
   title: {
     type: String,
     required: true,

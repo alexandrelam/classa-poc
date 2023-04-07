@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
-import { JobListing, jobListingType } from "./models/jobListing";
+import { JobListing, JobListingType } from "./models/jobListing";
 
-const jobListings: jobListingType[] = [
+const jobListings: JobListingType[] = [
   {
     title: "Software Engineer",
     description: "We are looking for a software engineer to join our team.",

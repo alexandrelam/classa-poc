@@ -1,10 +1,10 @@
 export type JobListingType = {
-  _id: String;
-  title: String;
-  description: String;
-  company: String;
-  salary: Number;
-  tags: String[];
+  _id: string;
+  title: string;
+  description: string;
+  company: string;
+  salary: number;
+  tags: string[];
 };
 
 type Props = {
@@ -26,6 +26,7 @@ export function JobListingCard({ jobListings }: Props) {
                 {tag}
               </span>
             ))}
+            <span className="badge badge-secondary">{jobListings.salary}€</span>
           </div>
           <div className="card-actions justify-end">
             <button className="btn btn-primary">Détails</button>
