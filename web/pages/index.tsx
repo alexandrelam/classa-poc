@@ -1,8 +1,40 @@
 import { JobListingCard, JobListingType } from "@/components/JobListingCard";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 export default function Home() {
   const [jobListings, setJobListings] = useState<JobListingType[]>([]);
+
+  const themes = [
+    "light",
+    "dark",
+    "cupcake",
+    "bumblebee",
+    "emerald",
+    "corporate",
+    "synthwave",
+    "retro",
+    "cyberpunk",
+    "valentine",
+    "halloween",
+    "garden",
+    "forest",
+    "aqua",
+    "lofi",
+    "pastel",
+    "fantasy",
+    "wireframe",
+    "black",
+    "luxury",
+    "dracula",
+    "cmyk",
+    "autumn",
+    "business",
+    "acid",
+    "lemonade",
+    "night",
+    "coffee",
+    "winter",
+  ];
 
   useEffect(() => {
     async function getJobListings() {
@@ -13,10 +45,25 @@ export default function Home() {
     getJobListings();
   }, []);
 
+  function handleThemeChange(e: React.ChangeEvent<HTMLSelectElement>) {
+    const newTheme = e.target.value;
+    document.querySelector("html")?.setAttribute("data-theme", newTheme);
+  }
+
   return (
     <>
-      <div className="navbar bg-base-100 shadow-sm">
+      <div className="navbar bg-base-100 shadow-sm flex justify-between">
         <a className="btn btn-ghost normal-case text-xl text-accent">Classa</a>
+        <select
+          className="select select-primary w-full max-w-xs"
+          onChange={handleThemeChange}
+        >
+          {themes.map((theme, index) => (
+            <option key={index} value={theme}>
+              {theme}
+            </option>
+          ))}
+        </select>
       </div>
       <main className="max-w-2xl	m-auto my-12 prose flex flex-col gap-2">
         <h1 className="text-primary">Job Listings</h1>
