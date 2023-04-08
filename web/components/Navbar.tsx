@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export function Navbar() {
   const themes = [
     "light",
@@ -38,7 +40,9 @@ export function Navbar() {
 
   return (
     <div className="navbar bg-base-100 border-b border-neutral border-opacity-10 flex justify-between">
-      <a className="btn btn-ghost normal-case text-xl">Classa</a>
+      <Link href="/" className="btn btn-ghost normal-case text-xl">
+        Classa
+      </Link>
       <select
         className="select select-primary w-full max-w-xs"
         onChange={handleThemeChange}

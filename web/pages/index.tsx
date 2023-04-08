@@ -16,13 +16,37 @@ export default function Home() {
 
   if (isLoading)
     return (
-      <MainLayout>
+      <MainLayout
+        title="Job Listings"
+        breadcrumbs={[
+          {
+            link: "/",
+            name: "Home",
+          },
+          {
+            link: null,
+            name: "Job listings",
+          },
+        ]}
+      >
         <div>Loading...</div>;
       </MainLayout>
     );
 
   return (
-    <MainLayout>
+    <MainLayout
+      title="Job Listings"
+      breadcrumbs={[
+        {
+          link: "/",
+          name: "Home",
+        },
+        {
+          link: null,
+          name: "Job listings",
+        },
+      ]}
+    >
       <form className="flex items-center gap-2">
         <input
           type="text"
