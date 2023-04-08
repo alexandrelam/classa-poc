@@ -1,7 +1,9 @@
 import { JobListingCard, JobListingType } from "@/components/JobListingCard";
-import { useContext, useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 
 export default function Home() {
+  const router = useRouter();
   const [jobListings, setJobListings] = useState<JobListingType[]>([]);
 
   const themes = [
@@ -38,9 +40,13 @@ export default function Home() {
 
   useEffect(() => {
     async function getJobListings() {
-      const res = await fetch("http://localhost:3001/job-listings");
-      const data = await res.json();
-      setJobListings(data);
+      try {
+        const res = await fetch("http://localhost:3001/job-listings");
+        const data = await res.json();
+        setJobListings(data);
+      } catch (error) {
+        router.push(`/404?msg=${error}`);
+      }
     }
     getJobListings();
   }, []);
