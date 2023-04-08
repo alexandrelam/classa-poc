@@ -1,27 +1,25 @@
+import { useQuery } from "@tanstack/react-query";
 import { JobListingCard, JobListingType } from "@/components/JobListingCard";
 import { MainLayout } from "@/components/MainLayout";
-import { Navbar } from "@/components/Navbar";
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+
+type JobListingDTO = {
+  jobListings: JobListingType[];
+  count: number;
+};
 
 export default function Home() {
-  const router = useRouter();
-  const [jobListings, setJobListings] = useState<JobListingType[]>([]);
-  const [count, setCount] = useState(0);
+  const { data, isLoading } = useQuery<JobListingDTO>({
+    queryKey: ["jobListings"],
+    queryFn: () =>
+      fetch("http://localhost:3001/job-listings").then((res) => res.json()),
+  });
 
-  useEffect(() => {
-    async function getJobListings() {
-      try {
-        const res = await fetch("http://localhost:3001/job-listings");
-        const data = await res.json();
-        setJobListings(data.data);
-        setCount(data.count);
-      } catch (error) {
-        router.push(`/404?msg=${error}`);
-      }
-    }
-    getJobListings();
-  }, []);
+  if (isLoading)
+    return (
+      <MainLayout>
+        <div>Loading...</div>;
+      </MainLayout>
+    );
 
   return (
     <MainLayout>
@@ -49,11 +47,12 @@ export default function Home() {
         </button>
       </form>
       <div className="my-10 flex flex-col gap-4">
-        <span className="text-sm">{count} results</span>
-        {jobListings.length &&
-          jobListings.map((jobListing, index) => {
-            return <JobListingCard key={index} jobListings={jobListing} />;
-          })}
+        <span className="text-sm">{data ? data.count : 0} results</span>
+        {data
+          ? data.jobListings.map((jobListing, index) => {
+              return <JobListingCard key={index} jobListings={jobListing} />;
+            })
+          : null}
       </div>
     </MainLayout>
   );

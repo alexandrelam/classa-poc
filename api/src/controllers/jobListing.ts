@@ -4,7 +4,7 @@ import { JobListing } from "../models/jobListing";
 export async function index(req: Request, res: Response) {
   const jobListings = await JobListing.find({});
   const count = await JobListing.countDocuments({});
-  return res.json({ data: jobListings, count });
+  return res.json({ jobListings, count });
 }
 
 export async function create(req: Request, res: Response) {
