@@ -1,49 +1,20 @@
 import { JobListingCard, JobListingType } from "@/components/JobListingCard";
+import { Navbar } from "@/components/Navbar";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
 export default function Home() {
   const router = useRouter();
   const [jobListings, setJobListings] = useState<JobListingType[]>([]);
-
-  const themes = [
-    "light",
-    "dark",
-    "cupcake",
-    "bumblebee",
-    "emerald",
-    "corporate",
-    "synthwave",
-    "retro",
-    "cyberpunk",
-    "valentine",
-    "halloween",
-    "garden",
-    "forest",
-    "aqua",
-    "lofi",
-    "pastel",
-    "fantasy",
-    "wireframe",
-    "black",
-    "luxury",
-    "dracula",
-    "cmyk",
-    "autumn",
-    "business",
-    "acid",
-    "lemonade",
-    "night",
-    "coffee",
-    "winter",
-  ];
+  const [count, setCount] = useState(0);
 
   useEffect(() => {
     async function getJobListings() {
       try {
         const res = await fetch("http://localhost:3001/job-listings");
         const data = await res.json();
-        setJobListings(data);
+        setJobListings(data.data);
+        setCount(data.count);
       } catch (error) {
         router.push(`/404?msg=${error}`);
       }
@@ -51,29 +22,12 @@ export default function Home() {
     getJobListings();
   }, []);
 
-  function handleThemeChange(e: React.ChangeEvent<HTMLSelectElement>) {
-    const newTheme = e.target.value;
-    document.querySelector("html")?.setAttribute("data-theme", newTheme);
-  }
-
   return (
     <>
-      <div className="navbar bg-base-100 border-b border-neutral border-opacity-10 flex justify-between">
-        <a className="btn btn-ghost normal-case text-xl">Classa</a>
-        <select
-          className="select select-primary w-full max-w-xs"
-          onChange={handleThemeChange}
-        >
-          {themes.map((theme, index) => (
-            <option key={index} value={theme} selected={theme === "garden"}>
-              {theme}
-            </option>
-          ))}
-        </select>
-      </div>
+      <Navbar />
       <main className="max-w-2xl	m-auto my-12 prose flex flex-col gap-2">
         <h1 className="text-primary">Job Listings</h1>
-        <div className="flex items-center gap-2">
+        <form className="flex items-center gap-2">
           <input
             type="text"
             placeholder="Recherchez un poste"
@@ -95,8 +49,9 @@ export default function Home() {
               />
             </svg>
           </button>
-        </div>
+        </form>
         <div className="my-10 flex flex-col gap-4">
+          <span className="text-sm">{count} results</span>
           {jobListings.length &&
             jobListings.map((jobListing, index) => {
               return <JobListingCard key={index} jobListings={jobListing} />;
