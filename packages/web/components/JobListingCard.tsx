@@ -19,7 +19,12 @@ export function JobListingCard({ jobListings }: Props) {
                 {tag}
               </span>
             ))}
-            <span className="badge badge-secondary">{jobListings.salary}€</span>
+            <span className="badge badge-secondary">
+              {new Intl.NumberFormat("fr-FR", {
+                style: "currency",
+                currency: "EUR",
+              }).format(jobListings.salary)}
+            </span>
           </div>
           <div className="card-actions justify-end">
             <button className="btn btn-primary">Détails</button>
