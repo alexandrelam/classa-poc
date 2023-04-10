@@ -1,14 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
-import { JobListingCard, JobListingType } from "@/components/JobListingCard";
+import { JobListingCard } from "@/components/JobListingCard";
+import { JobListingResponse } from "@/../types/src";
 import { MainLayout } from "@/components/MainLayout";
 
-type JobListingDTO = {
-  jobListings: JobListingType[];
-  count: number;
-};
-
 export default function Home() {
-  const { data, isLoading } = useQuery<JobListingDTO>({
+  const { data, isLoading } = useQuery<JobListingResponse>({
     queryKey: ["jobListings"],
     queryFn: () =>
       fetch("http://localhost:3001/job-listings").then((res) => res.json()),
@@ -71,7 +67,7 @@ export default function Home() {
         </button>
       </form>
       <div className="my-10 flex flex-col gap-4">
-        <span className="text-sm">{data ? data.count : 0} results</span>
+        <span className="text-sm">{data ? data.total : 0} results</span>
         {data
           ? data.jobListings.map((jobListing, index) => {
               return <JobListingCard key={index} jobListings={jobListing} />;
@@ -81,4 +77,3 @@ export default function Home() {
     </MainLayout>
   );
 }
-
