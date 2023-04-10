@@ -7,15 +7,23 @@ export function Navbar() {
       <Link href="/" className="btn btn-ghost normal-case text-xl">
         Classa
       </Link>
+      <div className="navbar-center hidden lg:flex">
+        <ul className="menu menu-horizontal px-1">
+          <li>
+            <Link href="/">Job listings</Link>
+          </li>
+          <li>
+            <Link href="/joblistings/create">Create Job listing</Link>
+          </li>
+        </ul>
+      </div>
       <div className="dropdown dropdown-end">
-        <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-          <div className="w-10 rounded-full">
-            <Image
-              src="/profile.webp"
-              alt="profile picture"
-              width={40}
-              height={40}
-            />
+        <label
+          tabIndex={0}
+          className="btn btn-ghost btn-circle avatar placeholder"
+        >
+          <div className="bg-neutral-focus text-neutral-content rounded-full w-8">
+            <span className="text-xs">AL</span>
           </div>
         </label>
         <ul
