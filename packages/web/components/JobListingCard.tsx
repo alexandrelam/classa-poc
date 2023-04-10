@@ -34,3 +34,16 @@ export function JobListingCard({ jobListings }: Props) {
     </div>
   );
 }
+
+export function JobListingCardSkeleton() {
+  return (
+    <div className="card card-bordered w-full bg-base-100">
+      <div className="card-body animate-pulse">
+        <span className="w-40 h-4 rounded-full bg-neutral"></span>
+        <span className="w-72 mt-4 h-4 rounded-full bg-neutral"></span>
+        <span className="w-96 h-4 rounded-full bg-neutral"></span>
+        <span className="w-80 h-4 rounded-full bg-neutral"></span>
+      </div>
+    </div>
+  );
+}

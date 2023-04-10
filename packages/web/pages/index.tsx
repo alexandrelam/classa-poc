@@ -1,5 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
-import { JobListingCard } from "@/components/JobListingCard";
+import {
+  JobListingCard,
+  JobListingCardSkeleton,
+} from "@/components/JobListingCard";
 import { JobListingResponse } from "@/../types/src";
 import { MainLayout } from "@/components/MainLayout";
 import { useState } from "react";
@@ -80,7 +83,11 @@ export default function Home() {
           },
         ]}
       >
-        <span>Loading...</span>
+        <div className="flex flex-col gap-4">
+          {Array.from({ length: 6 }).map((_, i) => (
+            <JobListingCardSkeleton key={i} />
+          ))}
+        </div>
       </MainLayout>
     );
 

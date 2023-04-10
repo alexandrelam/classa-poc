@@ -3,7 +3,6 @@ import { JobListing } from "../models/jobListing";
 
 export async function index(req: Request, res: Response) {
   try {
-    throw new Error("tres");
     const search = req.query.search;
     let jobListings = [];
     let total = 0;
