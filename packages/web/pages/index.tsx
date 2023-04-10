@@ -116,7 +116,7 @@ export default function Home() {
             <input
               name="search"
               type="text"
-              placeholder="Recherchez un poste"
+              placeholder="Cherchez un job par titre, entreprise, tag... "
               className="input input-bordered w-full"
               onChange={(e) => setSearchQuery(e.target.value)}
             />
