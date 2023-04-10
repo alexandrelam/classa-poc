@@ -35,6 +35,7 @@ export default function Settings() {
 
   function handleThemeChange(e: React.ChangeEvent<HTMLSelectElement>) {
     const newTheme = e.target.value;
+    localStorage.setItem("theme", newTheme);
     document.querySelector("html")?.setAttribute("data-theme", newTheme);
   }
 
