@@ -11,7 +11,9 @@ export function JobListingCard({ jobListings }: Props) {
           <h2 className="card-title m-0">{jobListings.title}</h2>
           <span>{jobListings.company}</span>
         </div>
-        <p className="m-0">{jobListings.description}</p>
+        <p className="m-0 max-h-20 overflow-hidden">
+          {jobListings.description}
+        </p>
         <div className="w-full flex items-end space-between">
           <div className="flex gap-1 mr-auto mb-1">
             {jobListings.tags.map((tag, index) => (
