@@ -24,4 +24,11 @@ const jobListingSchema = new mongoose.Schema<JobListingType>({
   },
 });
 
+jobListingSchema.index({
+  title: "text",
+  description: "text",
+  company: "text",
+  tags: "text",
+});
+
 export const JobListing = mongoose.model("JobListing", jobListingSchema);

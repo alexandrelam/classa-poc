@@ -2,13 +2,24 @@ import { useQuery } from "@tanstack/react-query";
 import { JobListingCard } from "@/components/JobListingCard";
 import { JobListingResponse } from "@/../types/src";
 import { MainLayout } from "@/components/MainLayout";
+import { useState } from "react";
 
 export default function Home() {
-  const { data, isLoading } = useQuery<JobListingResponse>({
+  const [searchQuery, setSearchQuery] = useState("");
+  const { data, isLoading, refetch } = useQuery<JobListingResponse>({
     queryKey: ["jobListings"],
     queryFn: () =>
-      fetch("http://localhost:3001/job-listings").then((res) => res.json()),
+      fetch(
+        `http://localhost:3001/job-listings${
+          searchQuery.length ? "?search=" + searchQuery : ""
+        }`
+      ).then((res) => res.json()),
   });
+
+  function searchFormSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    refetch();
+  }
 
   if (isLoading)
     return (
@@ -43,11 +54,13 @@ export default function Home() {
         },
       ]}
     >
-      <form className="flex items-center gap-2">
+      <form className="flex items-center gap-2" onSubmit={searchFormSubmit}>
         <input
+          name="search"
           type="text"
           placeholder="Recherchez un poste"
           className="input input-bordered w-full"
+          onChange={(e) => setSearchQuery(e.target.value)}
         />
         <button className="btn btn-square">
           <svg

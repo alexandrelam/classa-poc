@@ -6,6 +6,7 @@
   "scripts": {
     "web": "pnpm --filter web dev",
     "api": "pnpm --filter api dev",
+    "seed": "pnpm --filter api seed",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
