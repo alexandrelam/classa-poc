@@ -6,19 +6,63 @@ import { useState } from "react";
 
 export default function Home() {
   const [searchQuery, setSearchQuery] = useState("");
-  const { data, isLoading, refetch } = useQuery<JobListingResponse>({
-    queryKey: ["jobListings"],
-    queryFn: () =>
-      fetch(
-        `http://localhost:3001/job-listings${
-          searchQuery.length ? "?search=" + searchQuery : ""
-        }`
-      ).then((res) => res.json()),
-  });
+  const { data, isLoading, isError, error, refetch } =
+    useQuery<JobListingResponse>({
+      queryKey: ["jobListings"],
+      queryFn: () =>
+        fetch(
+          `http://localhost:3001/job-listings${
+            searchQuery.length ? "?search=" + searchQuery : ""
+          }`
+        ).then(async (res) => {
+          if (!res.ok) {
+            throw new Error("Une erreur est survenue 💀");
+          }
+
+          return res.json();
+        }),
+    });
 
   function searchFormSubmit(e: React.FormEvent) {
     e.preventDefault();
     refetch();
+  }
+
+  if (isError) {
+    return (
+      <MainLayout
+        title="Job Listings"
+        breadcrumbs={[
+          {
+            link: "/",
+            name: "Home",
+          },
+          {
+            link: null,
+            name: "Job listings",
+          },
+        ]}
+      >
+        <div className="alert alert-error shadow-lg">
+          <div>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="stroke-current flex-shrink-0 h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
+            </svg>
+            <span>{(error as Error).message}</span>
+          </div>
+        </div>
+      </MainLayout>
+    );
   }
 
   if (isLoading)
@@ -36,7 +80,7 @@ export default function Home() {
           },
         ]}
       >
-        <div>Loading...</div>
+        <span>Loading...</span>
       </MainLayout>
     );
 
@@ -80,8 +124,8 @@ export default function Home() {
         </button>
       </form>
       <div className="my-10 flex flex-col gap-4">
-        <span className="text-sm">{data ? data.total : 0} results</span>
-        {data
+        <span className="text-sm">{data?.total ? data.total : 0} results</span>
+        {data?.jobListings
           ? data.jobListings.map((jobListing, index) => {
               return <JobListingCard key={index} jobListings={jobListing} />;
             })
