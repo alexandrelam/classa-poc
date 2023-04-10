@@ -1,4 +1,5 @@
 import { MainLayout } from "@/components/MainLayout";
+import { useEffect, useState } from "react";
 
 export default function Settings() {
   const themes = [
@@ -39,6 +40,12 @@ export default function Settings() {
     document.querySelector("html")?.setAttribute("data-theme", newTheme);
   }
 
+  const [currentTheme, setCurrentTheme] = useState<string>("garden");
+  useEffect(() => {
+    const theme = localStorage.getItem("theme") || "garden";
+    setCurrentTheme(theme);
+  }, []);
+
   return (
     <MainLayout
       title="Settings"
@@ -67,7 +74,7 @@ export default function Settings() {
             <option
               key={index}
               defaultValue={theme}
-              selected={theme === "garden"}
+              selected={theme === currentTheme}
             >
               {theme}
             </option>
