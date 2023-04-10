@@ -16,7 +16,7 @@ export function MainLayout({ title, breadcrumbs, children }: Props) {
   return (
     <>
       <Navbar />
-      <main className="max-w-2xl	m-auto mt-12 prose flex flex-col gap-2">
+      <main className="max-w-6xl	m-auto mt-12 prose flex flex-col gap-2">
         <h1 className="text-primary my-0">{title}</h1>
         <div className="text-sm breadcrumbs">
           <ul className="pl-0 mt-0">
