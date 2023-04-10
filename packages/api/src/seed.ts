@@ -8,7 +8,7 @@ const jobListings: Omit<JobListingType, "_id">[] = [
     description: "We are looking for a software engineer to join our team.",
     company: "Google",
     salary: 100000,
-    tags: ["software", "engineer", "google"],
+    tags: ["software", "engineer", "google", "best job"],
   },
   {
     title: "Software Engineer",
