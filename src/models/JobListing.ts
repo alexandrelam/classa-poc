@@ -1,6 +1,6 @@
 import mongoose, { type Model } from "mongoose";
 
-type JobListingType = {
+export type JobListingType = {
   title: string;
   description: string;
   company: string;
