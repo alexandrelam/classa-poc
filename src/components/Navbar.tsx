@@ -12,7 +12,7 @@ export function Navbar() {
             <Link href="/">Job listings</Link>
           </li>
           <li>
-            <Link href="/joblistings/create">Create Job listing</Link>
+            <Link href="/job-listings/create">Create Job listing</Link>
           </li>
         </ul>
       </div>

@@ -1,3 +1,4 @@
+import { z } from "zod";
 import dbConnect from "~/lib/dbConnect";
 import JobListing from "~/models/JobListing";
 
@@ -12,4 +13,23 @@ export const jobListingRouter = createTRPCRouter({
 
     return { jobListings, total };
   }),
+  create: publicProcedure
+    .input(
+      z.object({
+        title: z.string(),
+        description: z.string(),
+        company: z.string(),
+        salary: z.number(),
+        tags: z.array(z.string()),
+      })
+    )
+    .mutation(async ({ input }) => {
+      await dbConnect();
+
+      const jobListing = await JobListing.create({
+        ...input,
+      });
+
+      return jobListing;
+    }),
 });

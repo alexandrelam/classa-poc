@@ -37,7 +37,7 @@ export default function Home() {
               type="text"
               placeholder="Cherchez un job par titre, entreprise, tag... "
               className="input-bordered input w-full"
-              onChange={(e) => setSearchQuery(e.target.value)}
+              onChange={(e) => void setSearchQuery(e.target.value)} // TODO: add debounce
             />
             <button className="btn-square btn">
               <svg
