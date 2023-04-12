@@ -3,12 +3,28 @@ import { MainLayout } from "~/components/MainLayout";
 import { Filters } from "~/components/Filters";
 
 import { api } from "~/utils/api";
+import { useState } from "react";
 
 export default function Home() {
-  const data = api.jobListing.getAll.useQuery();
+  const [searchQuery, setSearchQuery] = useState<string>("");
+  const { data } = api.jobListing.getAll.useQuery({
+    search: searchQuery,
+  });
 
-  function searchFormSubmit(e: React.FormEvent) {
+  function searchFormSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+
+    const target = e.target as typeof e.target & {
+      search: { value: string };
+    };
+
+    setSearchQuery(target.search.value);
+  }
+
+  function makeSearchWhenInputEmpty(searchInputValue: string) {
+    if (searchInputValue === "") {
+      setSearchQuery("");
+    }
   }
 
   return (
@@ -37,7 +53,9 @@ export default function Home() {
               type="text"
               placeholder="Cherchez un job par titre, entreprise, tag... "
               className="input-bordered input w-full"
-              onChange={(e) => void setSearchQuery(e.target.value)} // TODO: add debounce
+              onChange={(e) => {
+                makeSearchWhenInputEmpty(e.target.value);
+              }}
             />
             <button className="btn-square btn">
               <svg
@@ -58,10 +76,10 @@ export default function Home() {
           </form>
           <div className="my-10 flex flex-col gap-4">
             <span className="text-sm">
-              {data.data?.total ? data.data.total : 0} results
+              {data?.total ? data.total : 0} results
             </span>
-            {data.data
-              ? data.data.jobListings.map((jobListing, index) => {
+            {data
+              ? data.jobListings.map((jobListing, index) => {
                   return (
                     <JobListingCard key={index} jobListings={jobListing} />
                   );

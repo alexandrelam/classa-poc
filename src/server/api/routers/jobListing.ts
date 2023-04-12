@@ -5,14 +5,23 @@ import JobListing from "~/models/JobListing";
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
 
 export const jobListingRouter = createTRPCRouter({
-  getAll: publicProcedure.query(async () => {
-    await dbConnect();
+  getAll: publicProcedure
+    .input(z.object({ search: z.string().optional() }))
+    .query(async ({ input }) => {
+      await dbConnect();
 
-    const jobListings = await JobListing.find({});
-    const total = await JobListing.countDocuments({});
+      let jobListings;
 
-    return { jobListings, total };
-  }),
+      if (input.search && input.search.length)
+        jobListings = await JobListing.find({
+          $text: { $search: input.search },
+        });
+      else jobListings = await JobListing.find({});
+
+      const total = await JobListing.countDocuments({});
+
+      return { jobListings, total };
+    }),
   create: publicProcedure
     .input(
       z.object({
