@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Navbar } from "./Navbar";
+import { Footer } from "./Footer";
 
 export type BreadCrumbsType = {
   link: string | null;
@@ -16,7 +17,7 @@ export function MainLayout({ title, breadcrumbs, children }: Props) {
   return (
     <>
       <Navbar />
-      <main className="prose	m-auto mt-12 flex max-w-6xl flex-col gap-2">
+      <main className="prose m-auto mb-20 mt-12 flex max-w-6xl flex-col gap-2">
         <h1 className="my-0 text-primary">{title}</h1>
         <div className="breadcrumbs text-sm">
           <ul className="mt-0 pl-0">
@@ -33,6 +34,7 @@ export function MainLayout({ title, breadcrumbs, children }: Props) {
         </div>
         {children}
       </main>
+      <Footer />
     </>
   );
 }
