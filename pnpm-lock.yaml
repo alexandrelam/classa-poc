@@ -3,6 +3,7 @@ lockfileVersion: 5.4
 specifiers:
   '@tailwindcss/typography': ^0.5.9
   '@tanstack/react-query': ^4.28.0
+  '@tanstack/react-query-devtools': ^4.29.1
   '@trpc/client': ^10.18.0
   '@trpc/next': ^10.18.0
   '@trpc/react-query': ^10.18.0
@@ -35,6 +36,7 @@ specifiers:
 dependencies:
   '@tailwindcss/typography': 0.5.9_tailwindcss@3.3.1
   '@tanstack/react-query': 4.29.1_biqbaboplfbrettd7655fr4n2y
+  '@tanstack/react-query-devtools': 4.29.1_veiur3vxaibs2bgteler4tkrom
   '@trpc/client': 10.19.1_@trpc+server@10.19.1
   '@trpc/next': 10.19.1_brmydnwrizpgjft6d7ohjrzcni
   '@trpc/react-query': 10.19.1_zpqtk3y2uzj77l3q37qlnsrmye
@@ -306,8 +308,30 @@ packages:
       tailwindcss: 3.3.1_postcss@8.4.21
     dev: false
 
+  /@tanstack/match-sorter-utils/8.8.4:
+    resolution: {integrity: sha512-rKH8LjZiszWEvmi01NR72QWZ8m4xmXre0OOwlRGnjU01Eqz/QnN+cqpty2PJ0efHblq09+KilvyR7lsbzmXVEw==}
+    engines: {node: '>=12'}
+    dependencies:
+      remove-accents: 0.4.2
+    dev: false
+
   /@tanstack/query-core/4.29.1:
     resolution: {integrity: sha512-vkPewLEG8ua0efo3SsVT0BcBtkq5RZX8oPhDAyKL+k/rdOYSQTEocfGEXSaBwIwsXeOGBUpfKqI+UmHvNqdWXg==}
+    dev: false
+
+  /@tanstack/react-query-devtools/4.29.1_veiur3vxaibs2bgteler4tkrom:
+    resolution: {integrity: sha512-lbtNGArplXLVmY8eEh8LFqZz61PJI38sASEcuKoSnEK8UgWvLCwY5vjlT8fzk10yQ4jhR3+PHKLDMXA5ifCTXw==}
+    peerDependencies:
+      '@tanstack/react-query': 4.29.1
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      '@tanstack/match-sorter-utils': 8.8.4
+      '@tanstack/react-query': 4.29.1_biqbaboplfbrettd7655fr4n2y
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+      superjson: 1.12.2
+      use-sync-external-store: 1.2.0_react@18.2.0
     dev: false
 
   /@tanstack/react-query/4.29.1_biqbaboplfbrettd7655fr4n2y:
@@ -2554,6 +2578,10 @@ packages:
       define-properties: 1.2.0
       functions-have-names: 1.2.3
     dev: true
+
+  /remove-accents/0.4.2:
+    resolution: {integrity: sha512-7pXIJqJOq5tFgG1A2Zxti3Ht8jJF337m4sowbuHsW30ZnkQFnDzy9qBNhgzX8ZLW4+UBcXiiR7SwR6pokHsxiA==}
+    dev: false
 
   /resolve-from/4.0.0:
     resolution: {integrity: sha512-pb/MYmXstAkysRFx8piNI1tGFNQIFA3vkE3Gq4EuA1dF6gHp/+vgZqsCGJapvy8N3Q+4o7FwvquPJcnZ7RYy4g==}

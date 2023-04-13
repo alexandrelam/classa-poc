@@ -1,16 +1,32 @@
 import { type JobListingType } from "~/models/JobListing";
+import { IBookmark } from "./icons/IBookmark";
+import { api } from "~/utils/api";
 
 type Props = {
   jobListings: JobListingType;
 };
 
 export function JobListingCard({ jobListings }: Props) {
+  const mutation = api.jobListing.toggleSaved.useMutation();
+  const invalidateJobListings = api.useContext().jobListing.invalidate();
+
+  async function handleToggleSaved(id: string) {
+    await mutation.mutateAsync({ id });
+    await invalidateJobListings;
+  }
+
   return (
     <div className="card-bordered card w-full bg-base-100">
       <div className="card-body">
         <div className="flex items-end gap-2">
           <h2 className="card-title m-0">{jobListings.title}</h2>
           <span>{jobListings.company}</span>
+          <button
+            className="btn-ghost btn-sm btn p-0"
+            onClick={() => void handleToggleSaved(jobListings._id)}
+          >
+            <IBookmark filled={jobListings.saved} />
+          </button>
         </div>
         <p className="m-0 max-h-20 overflow-hidden">
           {jobListings.description}

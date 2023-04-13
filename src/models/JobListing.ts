@@ -1,10 +1,12 @@
 import mongoose, { type Model } from "mongoose";
 
 export type JobListingType = {
+  _id: string;
   title: string;
   description: string;
   company: string;
   salary: number;
+  saved: boolean;
   tags: string[];
 };
 
@@ -23,6 +25,10 @@ const JobListingSchema = new mongoose.Schema<JobListingType>({
   },
   salary: {
     type: Number,
+    required: true,
+  },
+  saved: {
+    type: Boolean,
     required: true,
   },
   tags: {
