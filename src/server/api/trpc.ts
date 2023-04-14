@@ -33,9 +33,7 @@ type CreateContextOptions = {
  *
  * @see https://create.t3.gg/en/usage/trpc#-serverapitrpcts
  */
-const createInnerTRPCContext = async (opts: CreateContextOptions) => {
-  await dbConnect();
-
+const createInnerTRPCContext = (opts: CreateContextOptions) => {
   return {
     session: opts.session,
   };
@@ -68,7 +66,6 @@ export const createTRPCContext = async (opts: CreateNextContextOptions) => {
 import { initTRPC, TRPCError } from "@trpc/server";
 import superjson from "superjson";
 import { ZodError } from "zod";
-import dbConnect from "~/lib/dbConnect";
 
 const t = initTRPC.context<typeof createTRPCContext>().create({
   transformer: superjson,
