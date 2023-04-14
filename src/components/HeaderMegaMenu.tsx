@@ -13,6 +13,7 @@ import {
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { useRouter } from "next/router";
+import { api } from "~/utils/api";
 
 const useStyles = createStyles((theme) => ({
   link: {
@@ -59,10 +60,23 @@ export function HeaderMegaMenu() {
     useDisclosure(false);
   const { classes, theme } = useStyles();
   const router = useRouter();
+  const { mutateAsync: register } = api.user.register.useMutation();
 
   async function goToLogin() {
     console.log("clicked");
     await router.push("/login");
+  }
+
+  async function addNewUser() {
+    try {
+      await register({
+        name: "Alex",
+        email: "alexandrelam@outlook.com",
+        password: "test",
+      });
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return (
@@ -89,7 +103,7 @@ export function HeaderMegaMenu() {
             <Button variant="default" onClick={() => void goToLogin()}>
               Log in
             </Button>
-            <Button>Sign up</Button>
+            <Button onClick={() => void addNewUser()}>Sign up</Button>
           </Group>
 
           <Burger
